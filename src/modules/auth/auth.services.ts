@@ -13,6 +13,10 @@ const loginUser = async (payload: IloginUser) => {
     },
   });
 
+   if(user.activeStatus === "BLOCKED"){
+    throw new Error("User is blocked")
+   }
+
   const isPasswordMatched = await bcrypt.compare(password, user.password);
 
   if (!isPasswordMatched) {
